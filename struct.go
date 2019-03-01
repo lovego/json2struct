@@ -1,4 +1,4 @@
-package json
+package json2struct
 
 import (
 	"errors"
@@ -6,15 +6,11 @@ import (
 	"strings"
 )
 
-type structJson struct {
-	keyToField map[string]string
-}
-
-func newStructJson(typ reflect.Type) (*structJson, error) {
+func getKey2FieldMap(typ reflect.Type) (map[string]string, error) {
 	m := make(map[string]string)
 	var err error
 	traverseStructFields(typ, func(field reflect.StructField) {
-		if key := getJsonKey(field.Name, field.Tag.Get("json")); key != "" {
+		if key := getFieldJsonKey(field.Name, field.Tag.Get("json")); key != "" {
 			lower := strings.ToLower(key)
 			if _, ok := m[lower]; ok {
 				err = errors.New("conflict json key: " + key)
@@ -26,10 +22,10 @@ func newStructJson(typ reflect.Type) (*structJson, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &structJson{keyToField: m}, nil
+	return m, nil
 }
 
-func getJsonKey(fieldName, tag string) string {
+func getFieldJsonKey(fieldName, tag string) string {
 	if tag == "-" {
 		return ""
 	}
