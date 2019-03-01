@@ -7,7 +7,7 @@ import (
 
 var caches = make(map[reflect.Type]reflect.Type)
 
-func UnmarshalToStruct(data []byte, p interface{}) ([]string, error) {
+func Unmarshal(data []byte, p interface{}) ([]string, error) {
 	return nil, nil
 }
 
