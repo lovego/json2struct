@@ -1,5 +1,5 @@
 # json2struct
-Unmarshal json to struct, returning fields affected.
+Unmarshal json to struct, returning affected fields.
 
 [![Build Status](https://travis-ci.org/lovego/json2struct.svg?branch=master)](https://travis-ci.org/lovego/json2struct)
 [![Coverage Status](https://img.shields.io/coveralls/github/lovego/json2struct/master.svg)](https://coveralls.io/github/lovego/json2struct?branch=master)
