@@ -5,29 +5,29 @@ import (
 	"reflect"
 )
 
-func ExampleNewFields() {
+func Example_NewFields() {
 	for _, v := range []interface{}{
 		struct{}{},
 		struct {
-			Id   int
+			ID   int
 			Name string `json:"userName,omitempty"`
 			typ1
 			other float32
 		}{},
 		struct {
-			Id   int
+			ID   int
 			Name string `json:"name"`
 			*typ1
 			*typ2
 			Typ2
 		}{},
 		struct {
-			Id   int
+			ID   int
 			Name string `json:"bank"`
 			typ1
 		}{},
 		struct {
-			Id   int
+			ID   int
 			Bank string `json:"name"`
 			typ1
 		}{},
@@ -40,13 +40,13 @@ func ExampleNewFields() {
 	}
 	// Output:
 	// []
-	// [{Id id} {Name username} {Bank bank}]
-	// [{Id id} {Name name} {Bank bank} {Typ2 typ2}]
+	// [{ID id} {Name username} {Bank bank}]
+	// [{ID id} {Name name} {Bank bank} {Typ2 typ2}]
 	// conflicts field jsonKey: [{name:Name jsonKey:bank} {name:Bank jsonKey:bank}]
 	// conflicts field name: [{name:Bank jsonKey:name} {name:Bank jsonKey:bank}]
 }
 
-func ExampleGetFields() {
+func Example_GetFields() {
 	type typ1 struct {
 		A          int64  `json:"-"`
 		Bank       string `json:"bank"`

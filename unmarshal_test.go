@@ -35,34 +35,33 @@ func Example_Unmarshal() {
 	testUnmarshal(testContent, &struct{}{})
 
 	testUnmarshal("{}", &struct {
-		Id   int
+		ID   int
 		Name string `json:"userName,omitempty"`
 		typ1
 	}{})
 
 	testUnmarshal(testContent, &struct {
-		Id   int
+		ID   int
 		Name string `json:"userName,omitempty"`
 		typ1
 	}{})
 
 	testUnmarshal(testContent, &struct {
-		Id   int
+		ID   int
 		Name string `json:"name"`
 		typ1
-		*typ2
 		Typ2
 	}{})
 
 	// Output:
 	// &{}
 	// []
-	// &{Id:0 Name: typ1:{Bank: Ignored:0 unexported:0}}
+	// &{ID:0 Name: typ1:{Bank: Ignored:0 unexported:0}}
 	// []
-	// &{Id:1 Name:name typ1:{Bank:bank Ignored:0 unexported:0}}
-	// [Id Name Bank]
-	// &{Id:1 Name:name typ1:{Bank:bank Ignored:0 unexported:0} typ2:<nil> Typ2:Typ2}
-	// [Id Name Bank Typ2]
+	// &{ID:1 Name:name typ1:{Bank:bank Ignored:0 unexported:0}}
+	// [ID Name Bank]
+	// &{ID:1 Name:name typ1:{Bank:bank Ignored:0 unexported:0} Typ2:Typ2}
+	// [ID Name Bank Typ2]
 }
 
 func testUnmarshal(s string, p interface{}) {
@@ -77,19 +76,19 @@ func Example_Affected() {
 	testAffected(testContent, struct{}{})
 
 	testAffected("{}", struct {
-		Id   int
+		ID   int
 		Name string `json:"userName,omitempty"`
 		typ1
 	}{})
 
 	testAffected(testContent, struct {
-		Id   int
+		ID   int
 		Name string `json:"userName,omitempty"`
 		typ1
 	}{})
 
 	testAffected(testContent, struct {
-		Id   int
+		ID   int
 		Name string `json:"name"`
 		typ1
 		typ2
@@ -99,8 +98,8 @@ func Example_Affected() {
 	// Output:
 	// []
 	// []
-	// [Id Name Bank]
-	// [Id Name Bank Typ2]
+	// [ID Name Bank]
+	// [ID Name Bank Typ2]
 }
 
 func testAffected(s string, p interface{}) {

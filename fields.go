@@ -44,7 +44,7 @@ func newFields(typ reflect.Type) ([]fieldT, error) {
 	var m2 = make(map[string][]fieldT)
 
 	traverseStructFields(typ, func(field reflect.StructField) {
-		if key := getJsonKey(field.Name, field.Tag.Get("json")); key != "" {
+		if key := getJSONKey(field.Name, field.Tag.Get("json")); key != "" {
 			lower := strings.ToLower(key)
 			fields = append(fields, fieldT{name: field.Name, jsonKey: lower})
 			m1[lower] = append(m1[lower], fieldT{name: field.Name, jsonKey: key})
@@ -66,7 +66,7 @@ func newFields(typ reflect.Type) ([]fieldT, error) {
 	return fields, nil
 }
 
-func getJsonKey(fieldName, tag string) string {
+func getJSONKey(fieldName, tag string) string {
 	if tag == "-" {
 		return ""
 	}
