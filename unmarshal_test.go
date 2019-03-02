@@ -9,14 +9,14 @@ func ExampleUnmarshal() {
 	var v struct {
 		A, B, C int64
 	}
-	fields, err := Unmarshal([]byte(`{"a": 0, "c": 2}`), &v)
+	fields, err := Unmarshal([]byte(`{"a": 1, "b": 0}`), &v)
 
 	fmt.Printf("%+v\n", v)
 	fmt.Println(fields, err)
 
 	// Output:
-	// {A:0 B:0 C:2}
-	// [A C] <nil>
+	// {A:1 B:0 C:0}
+	// [A B] <nil>
 }
 
 type typ1 struct {
