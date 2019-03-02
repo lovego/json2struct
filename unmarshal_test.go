@@ -5,6 +5,20 @@ import (
 	"fmt"
 )
 
+func ExampleUnmarshal() {
+	var v struct {
+		A, B, C int64
+	}
+	fields, err := Unmarshal([]byte(`{"a": 0, "c": 2}`), &v)
+
+	fmt.Printf("%+v\n", v)
+	fmt.Println(fields, err)
+
+	// Output:
+	// {A:0 B:0 C:2}
+	// [A C] <nil>
+}
+
 type typ1 struct {
 	Bank       string `json:"bank"`
 	Ignored    int64  `json:"-"`
@@ -17,7 +31,7 @@ const testContent = `{
   "id":1, "Username": "name", "name": "name", "bAnK": "bank", "typ2": "type", "TYP2": "Typ2"
 }`
 
-func ExampleUnmarshal() {
+func Example_Unmarshal() {
 	testUnmarshal(testContent, &struct{}{})
 
 	testUnmarshal("{}", &struct {
@@ -59,7 +73,7 @@ func testUnmarshal(s string, p interface{}) {
 	}
 }
 
-func ExampleAffected() {
+func Example_Affected() {
 	testAffected(testContent, struct{}{})
 
 	testAffected("{}", struct {
@@ -97,7 +111,7 @@ func testAffected(s string, p interface{}) {
 	}
 }
 
-func ExampleUnmarshal_omitempty() {
+func Example_Unmarshal_omitempty() {
 	// omitempty should not work with Unmarshal
 	var v = struct {
 		A string `json:",omitempty"`
@@ -108,7 +122,7 @@ func ExampleUnmarshal_omitempty() {
 	// {A} <nil> {}
 }
 
-func ExampleUnmarshal_embedded() {
+func Example_Unmarshal_embedded() {
 	type T int64
 	var v struct{ T }
 
