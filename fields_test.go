@@ -6,14 +6,6 @@ import (
 )
 
 func ExampleNewFields() {
-	type typ1 struct {
-		A          int64  `json:"-"`
-		Bank       string `json:"bank"`
-		unexported int64
-	}
-	type typ2 string
-	type Typ2 string
-
 	for _, v := range []interface{}{
 		struct{}{},
 		struct {

@@ -5,20 +5,23 @@ import (
 	"strings"
 )
 
+// Unmarshal decode data into a struct, and return the affected fields of the struct.
 func Unmarshal(data []byte, p interface{}) ([]string, error) {
 	if err := json.Unmarshal(data, p); err != nil {
 		return nil, err
 	}
-	return AffectedFields(data, p)
+	return Affected(data, p)
 }
 
-func AffectedFields(data []byte, p interface{}) ([]string, error) {
+// Affected return the fields will be affected of a struct,
+// if the data is decoded into the the struct.
+func Affected(data []byte, p interface{}) ([]string, error) {
 	fields, err := getFields(p)
 	if err != nil {
 		return nil, err
 	}
 	var m map[string]interface{}
-	if err := json.Unmarshal(data, m); err != nil {
+	if err := json.Unmarshal(data, &m); err != nil {
 		return nil, err
 	}
 	if len(m) == 0 {

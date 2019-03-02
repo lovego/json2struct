@@ -17,11 +17,11 @@ type fieldT struct {
 
 func getFields(p interface{}) ([]fieldT, error) {
 	typ := reflect.TypeOf(p)
-	if typ.Kind() == reflect.Ptr {
+	for typ.Kind() == reflect.Ptr {
 		typ = typ.Elem()
 	}
 	if typ.Kind() != reflect.Struct {
-		return nil, errors.New("arg p is not a struct")
+		return nil, errors.New("arg p should be a struct or struct pointer")
 	}
 	mutex.RLock()
 	fields := caches[typ]
