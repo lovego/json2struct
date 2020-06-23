@@ -6,6 +6,8 @@ import (
 	"reflect"
 	"strings"
 	"sync"
+
+	"github.com/lovego/structs"
 )
 
 var caches = make(map[reflect.Type][]fieldT)
@@ -43,7 +45,7 @@ func newFields(typ reflect.Type) ([]fieldT, error) {
 	var m1 = make(map[string][]fieldT)
 	var m2 = make(map[string][]fieldT)
 
-	traverseStructFields(typ, func(field reflect.StructField) {
+	structs.TraverseExportedFields(typ, func(field reflect.StructField) {
 		if key := getJSONKey(field.Name, field.Tag.Get("json")); key != "" {
 			lower := strings.ToLower(key)
 			fields = append(fields, fieldT{name: field.Name, jsonKey: lower})
@@ -77,21 +79,4 @@ func getJSONKey(fieldName, tag string) string {
 		return fieldName
 	}
 	return tag
-}
-
-func traverseStructFields(typ reflect.Type, fn func(field reflect.StructField)) bool {
-	if typ.Kind() == reflect.Ptr {
-		typ = typ.Elem()
-	}
-	if typ.Kind() != reflect.Struct {
-		return false
-	}
-	for i := 0; i < typ.NumField(); i++ {
-		field := typ.Field(i)
-		if (!field.Anonymous || !traverseStructFields(field.Type, fn)) &&
-			(field.Name[0] >= 'A' && field.Name[0] <= 'Z') {
-			fn(field)
-		}
-	}
-	return true
 }

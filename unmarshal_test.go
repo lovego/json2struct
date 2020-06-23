@@ -125,7 +125,7 @@ func Example_Unmarshal_embedded() {
 	type T int64
 	var v struct{ T }
 
-	fmt.Println(v, json.Unmarshal([]byte(`{"t":9}`), &v), v)
+	fmt.Println(json.Unmarshal([]byte(`{"t":9}`), &v), v)
 	// Output:
-	// {0} <nil> {9}
+	// <nil> {9}
 }
