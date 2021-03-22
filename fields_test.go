@@ -42,8 +42,8 @@ func Example_NewFields() {
 	// []
 	// [{ID id} {Name username} {Bank bank}]
 	// [{ID id} {Name name} {Bank bank} {Typ2 typ2}]
-	// conflicts field jsonKey: [{name:Name jsonKey:bank} {name:Bank jsonKey:bank}]
-	// conflicts field name: [{name:Bank jsonKey:name} {name:Bank jsonKey:bank}]
+	// conflicts field jsonKey: [{Name:Name JsonKey:bank} {Name:Bank JsonKey:bank}]
+	// conflicts field name: [{Name:Bank JsonKey:name} {Name:Bank JsonKey:bank}]
 }
 
 func Example_GetFields() {
@@ -52,8 +52,8 @@ func Example_GetFields() {
 		Bank       string `json:"bank"`
 		unexported int64
 	}
-	fmt.Println(getFields(typ1{}))
-	fmt.Println(getFields(&typ1{}))
+	fmt.Println(GetFields(typ1{}))
+	fmt.Println(GetFields(&typ1{}))
 	// Output:
 	// [{Bank bank}] <nil>
 	// [{Bank bank}] <nil>

@@ -16,7 +16,7 @@ func Unmarshal(data []byte, p interface{}) ([]string, error) {
 // Affected return the fields will be affected of a struct,
 // if the data is decoded into the the struct.
 func Affected(data []byte, p interface{}) ([]string, error) {
-	fields, err := getFields(p)
+	fields, err := GetFields(p)
 	if err != nil {
 		return nil, err
 	}
@@ -34,8 +34,8 @@ func Affected(data []byte, p interface{}) ([]string, error) {
 	}
 	var result []string
 	for _, field := range fields {
-		if _, ok := m2[field.jsonKey]; ok {
-			result = append(result, field.name)
+		if _, ok := m2[field.JsonKey]; ok {
+			result = append(result, field.Name)
 		}
 	}
 	return result, nil

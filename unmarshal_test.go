@@ -111,7 +111,8 @@ func testAffected(s string, p interface{}) {
 }
 
 func Example_Unmarshal_omitempty() {
-	// omitempty should not work with Unmarshal
+	// go1.12 and earlier versions omitempty tag make Unmarshal omit empty value.
+	// go1.14 and later   versions omitempty tag has no effect on Unmarshal.
 	var v = struct {
 		A string `json:",omitempty"`
 	}{A: "A"}

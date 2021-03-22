@@ -14,10 +14,10 @@ var caches = make(map[reflect.Type][]fieldT)
 var mutex = sync.RWMutex{}
 
 type fieldT struct {
-	name, jsonKey string
+	Name, JsonKey string
 }
 
-func getFields(p interface{}) ([]fieldT, error) {
+func GetFields(p interface{}) ([]fieldT, error) {
 	typ := reflect.TypeOf(p)
 	for typ.Kind() == reflect.Ptr {
 		typ = typ.Elem()
@@ -48,9 +48,9 @@ func newFields(typ reflect.Type) ([]fieldT, error) {
 	structs.TraverseType(typ, func(field reflect.StructField) {
 		if key := getJSONKey(field.Name, field.Tag.Get("json")); key != "" {
 			lower := strings.ToLower(key)
-			fields = append(fields, fieldT{name: field.Name, jsonKey: lower})
-			m1[lower] = append(m1[lower], fieldT{name: field.Name, jsonKey: key})
-			m2[field.Name] = append(m2[field.Name], fieldT{name: field.Name, jsonKey: key})
+			fields = append(fields, fieldT{Name: field.Name, JsonKey: lower})
+			m1[lower] = append(m1[lower], fieldT{Name: field.Name, JsonKey: key})
+			m2[field.Name] = append(m2[field.Name], fieldT{Name: field.Name, JsonKey: key})
 		}
 	})
 
