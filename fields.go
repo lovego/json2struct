@@ -45,7 +45,9 @@ func newFields(typ reflect.Type) ([]fieldT, error) {
 	var m1 = make(map[string][]fieldT)
 	var m2 = make(map[string][]fieldT)
 
-	structs.TraverseType(typ, func(field reflect.StructField) {
+	structs.TraverseType(typ, func(field reflect.StructField) bool {
+		return field.Tag.Get("json") == "-"
+	}, func(field reflect.StructField) {
 		if key := getJSONKey(field.Name, field.Tag.Get("json")); key != "" {
 			lower := strings.ToLower(key)
 			fields = append(fields, fieldT{Name: field.Name, JsonKey: lower})
@@ -69,9 +71,6 @@ func newFields(typ reflect.Type) ([]fieldT, error) {
 }
 
 func getJSONKey(fieldName, tag string) string {
-	if tag == "-" {
-		return ""
-	}
 	if idx := strings.Index(tag, ","); idx != -1 {
 		tag = tag[:idx]
 	}

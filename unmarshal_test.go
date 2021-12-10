@@ -119,7 +119,7 @@ func Example_Unmarshal_omitempty() {
 
 	fmt.Println(v, json.Unmarshal([]byte(`{"A":""}`), &v), v)
 	// Output:
-	// {A} <nil> {}
+	// {} <nil> {}
 }
 
 func Example_Unmarshal_embedded() {
